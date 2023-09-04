@@ -1,9 +1,8 @@
 # Import Module
 from tkinter import *
 import tkinter as tk
-from random import randint
+import random
   
-
 # create root window
 root = Tk()
 
@@ -18,13 +17,22 @@ input_var=tk.StringVar()
 input_label = Label(root, text = 'Input', font=('calibre',10, 'bold'))
   
 # creating a entry for input
-input_entry = Entry(root,textvariable = input_var, font=('calibre',10,'normal'))
+input_entry = Entry(root,textvariable = input_var, width=60,font=('calibre',10,'normal'))
 
-entry_random = str(randint(2, 10))
-def entryrandom():
-       input_entry.insert(END, entry_random)
-Button(root, text = "random", width = 10, height = 1, command = entryrandom).grid(row=5, column=2)
-  
+       
+def generate_random_array():
+    # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
+    random_array = [random.randint(1, 100) for _ in range(10)]
+    
+    # Convert the array to a string for display
+    array_str = ', '.join(map(str, random_array))
+    
+    # Update the Entry widget with the generated array
+    input_entry.delete(0, tk.END)  # Clear the previous content
+    input_entry.insert(0, array_str)
+random_button=Button(root, text = "random",
+     width = 10, height = 1, command = generate_random_array).grid(row=5, column=2)
+
 # function to display text when
 # button is clicked
 def clicked():
@@ -48,6 +56,7 @@ input_entry.grid(row=0,column=1)
 
 
 btn.grid(row=2,column=1)
+# random_button.grid(row=2,column=1)
 
 # Execute Tkinter
 root.mainloop()
