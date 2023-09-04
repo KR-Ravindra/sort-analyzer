@@ -26,6 +26,7 @@ class Visualizer():
         _, steps_recording = sorters.start_sorting() #gets all the iterations from sorters instance
         
         for step in steps_recording: # plots and records graph for each step
+            print(step)
             self.ax.clear()
             bar = self.ax.bar(range(self.no_of_elements), step)
             self.ax.set_title(f'{self.algo_choice} Visualization')

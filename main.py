@@ -9,5 +9,8 @@ if __name__ == "__main__":
         arr = [10, 3, 15, 2, 19, 6, 56, 12, 19, 23, 38]
         
     visualizer = Visualizer()
-    visualizer.call_algo(arr, "bubble_sort")
-    visualizer.show_list()
+    try:
+        visualizer.call_algo(arr, "bubble_sort")
+        visualizer.show_list()
+    except Exception as ex:
+        print("Exception occured, Given function is not defined")
