@@ -1,3 +1,5 @@
+[![pytest](https://github.com/KR-Ravindra/sort-analyzer/actions/workflows/pytest.yml/badge.svg)](https://github.com/KR-Ravindra/sort-analyzer/actions/workflows/pytest.yml)
+
 # sort-analyzer
 An alogrithm analyzer tool for few famous sort algorithms
 
