@@ -1,4 +1,5 @@
 from plotter.visualizer import Visualizer
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     """Invokes when this application is called; by defaults asks for user input of an array and sort algo,
@@ -8,6 +9,10 @@ if __name__ == "__main__":
     if arr == []:
         arr = [10, 3, 15, 2, 19, 6, 56, 12, 19, 23, 38]
         
+    plt.hist(arr, bins=len(arr))    
+    plt.show() 
+    plt.scatter(len(arr), arr)
+    plt.show()
     visualizer = Visualizer()
     try:
         visualizer.call_algo(arr, "bubble_sort")

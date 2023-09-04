@@ -51,3 +51,4 @@ def test_bubble_sort_empty_array():
 
     assert output_array == expected_output
     assert output_steps == expected_steps
+    

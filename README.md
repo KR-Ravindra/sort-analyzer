@@ -1,7 +1,7 @@
 [![pytest](https://github.com/KR-Ravindra/sort-analyzer/actions/workflows/pytest.yml/badge.svg)](https://github.com/KR-Ravindra/sort-analyzer/actions/workflows/pytest.yml)
 
 # sort-analyzer
-An alogrithm analyzer tool for few famous sort algorithms
+An alogrithm efficiency analyzer tool for few famous sort algorithms
 
 ## Pre-requesties
 * Python 3.6+ (tested on python version: `Python 3.11`)
@@ -35,8 +35,10 @@ $ pytest --cov=./algorithms tests/*.py # Run all test cases with coverage report
 ```
 
 
-## Extra Features
+## TODO
 - [x] Live Sorting
 - [ ] Facility to compare across all available algorithms 
+- [x] Speed control on sorting
+- [ ] Multiple algorithms from visualizer at once
 
 > This is a group assignment for CPSC 535 class for semester Fall 2023 at Cal State University, Fullerton

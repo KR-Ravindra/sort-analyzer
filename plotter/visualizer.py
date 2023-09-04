@@ -11,7 +11,7 @@ class Visualizer():
     def __init__(self) -> None:
         self.fig, self.ax = plt.subplots()
     
-    def call_algo(self, unsorted_elements: list, algo_choice: str):
+    def call_algo(self, unsorted_elements: list, algo_choice: str, speed: int = 1):
         """Calls sorters for each algorithm
 
         Args:
@@ -30,7 +30,7 @@ class Visualizer():
             bar = self.ax.bar(range(self.no_of_elements), step)
             self.ax.set_title(f'{self.algo_choice} Visualization')
             self.ax.bar_label(bar, labels = step)
-            plt.pause(1) #TODO: Implement speed control on UI
+            plt.pause(speed) #Implements speed control on UI
         
     def show_list(self):
         # Displays graph, called by instance of GUI
