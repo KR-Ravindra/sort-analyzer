@@ -31,7 +31,7 @@ $ git push origin mybranchname
 ```bash
 # set your environment variable so you can find the algorithms/visualizer or any folder
 $ export PYTHONPATH=$PYTHONPATH:$PWD/algorithms 
-$ pytest --cov=./algorithms tests/*.py # Run all test cases with coverage report
+$ pytest # Run all test cases with coverage report
 ```
 
 ## TODO
