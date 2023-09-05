@@ -8,14 +8,10 @@ if __name__ == "__main__":
     arr = list(map(int, input("Enter numbers separated by spaces: ").split()))
     if arr == []:
         arr = [10, 3, 15, 2, 19, 6, 56, 12, 19, 23, 38]
-        
-    plt.hist(arr, bins=len(arr))    
-    plt.show() 
-    plt.scatter(len(arr), arr)
-    plt.show()
+
     visualizer = Visualizer()
     try:
-        visualizer.call_algo(arr, "bubble_sort")
+        visualizer.call_algo(arr, "insertion_sort", 1)
         visualizer.show_list()
     except Exception as ex:
         print("Exception occured, Given function is not defined")
