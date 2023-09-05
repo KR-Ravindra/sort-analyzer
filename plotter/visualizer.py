@@ -23,7 +23,8 @@ class Visualizer():
         self.no_of_elements = len(self.dataset)
         
         sorters = Sorters(self.algo_choice, unsorted_elements)
-        _, steps_recording = sorters.start_sorting() #gets all the iterations from sorters instance
+        _, steps_recording, execution_time = sorters.start_sorting() #gets all the iterations from sorters instance
+        # TODO: capture and post execution time in legend slot
         
         for step in steps_recording: # plots and records graph for each step
             self.ax.clear()

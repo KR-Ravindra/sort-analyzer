@@ -1,11 +1,14 @@
-def bubble_sort(unsorted_elements: list) -> list:
+import time
+
+def bubble_sort(unsorted_elements: list):
     """
     Implements bubble sort. Sorters object call this function.
     
     Input: List of integers
-    Output: Sorted Array, List of arrays (every iteration during sort)
+    Output: Sorted Array, List of arrays (every iteration during sort), execution time
     """
     steps = [] # Recording initialization for steps
+    start = time.time() # Recording start time 
     arr = unsorted_elements
     n = len(arr)
     for i in range(n):
@@ -17,8 +20,27 @@ def bubble_sort(unsorted_elements: list) -> list:
                 steps.append(list(arr)) # Appends into the recording, each time the items are altered
         if not swapped:
             break
-    return arr, steps
+    return arr, steps, (time.time() - start)
 
+def insertion_sort(arr):
+    """
+    Implements implementation sort. Sorters object call this function.
+    
+    Input: List of integers
+    Output: Sorted Array, List of arrays (every iteration during sort), execution time
+    """
+    steps = [] # Recording initialization for steps
+    start = time.time() # Recording start time 
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i-1
+        while j >=0 and key < arr[j]:
+            arr[j+1] = arr[j]
+            j -= 1
+            steps.append(list(arr)) 
+        arr[j+1] = key
+        steps.append(list(arr)) # Appends into the recording, each time the items are altered 
+    return arr, steps, (time.time() - start)
 
 class Sorters():
     """
@@ -28,12 +50,12 @@ class Sorters():
     Initialization Parameters: algo_choice: Choice of Algorithm, unsorted_elements: List
     """
     def __init__(self, algo_choice: str, unsorted_elements: list) -> None:
-        self.function = eval(algo_choice)
+        self.function = eval(algo_choice) # "insertion_sort" > insertion_sort
         self.unsorted_elements = unsorted_elements
     
     def start_sorting(self):
         # To start sorting, called by instance of visualizer
-        return self.function(self.unsorted_elements)
+        return self.function(self.unsorted_elements) # return insertion_sort(unsorted_elements)
     
 if __name__ == "__main__":
     pass

@@ -34,7 +34,6 @@ $ export PYTHONPATH=$PYTHONPATH:$PWD/algorithms
 $ pytest --cov=./algorithms tests/*.py # Run all test cases with coverage report
 ```
 
-
 ## TODO
 - [x] Live Sorting
 - [ ] Facility to compare across all available algorithms 
