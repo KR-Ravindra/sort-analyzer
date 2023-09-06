@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from algorithms.sorters import Sorters
+from matplotlib.figure import Figure
+
 
 class Visualizer():
     """
@@ -9,7 +11,9 @@ class Visualizer():
     Initialization Parameters: None
     """
     def __init__(self) -> None:
-        self.fig, self.ax = plt.subplots()
+        self.fig = Figure(figsize=(6, 4), dpi=100)
+        self.ax = self.fig.add_subplot(111)
+        # self.fig, self.ax = plt.subplots()
     
     def call_algo(self, unsorted_elements: list, algo_choice: str, speed: int = 1):
         """Calls sorters for each algorithm
@@ -33,9 +37,11 @@ class Visualizer():
             self.ax.bar_label(bar, labels = step)
             plt.pause(speed) #Implements speed control on UI
         
+        return self.fig
+        
     def show_list(self):
         # Displays graph, called by instance of GUI
         plt.show()
-
+        
 if __name__ == "__main__":
     print("Visualizer Only Mode!") 
