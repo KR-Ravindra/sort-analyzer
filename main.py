@@ -11,7 +11,20 @@ if __name__ == "__main__":
 
     visualizer = Visualizer()
     try:
-        visualizer.call_algo(arr, "insertion_sort", 1)
-        visualizer.show_list()
+         visualizer.call_algo(arr.copy(), "bubble_sort", 1)
+         visualizer.show_list()
+         plt.show()
+
+         visualizer.call_algo(arr.copy(), "insertion_sort", 2)
+         visualizer.show_list()
+         plt.figure()
+
+         visualizer.call_algo(arr.copy(), "quick_sort", 3)
+         visualizer.show_list()
+         plt.show()
+
+
+
+
     except Exception as ex:
         print("Exception occured, Given function is not defined")
