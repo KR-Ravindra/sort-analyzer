@@ -1,4 +1,4 @@
-# from plotter.visualizer import Visualizer
+from plotter.visualizer import Visualizer
 
 if __name__ == "__main__":
     """Invokes when this application is called; by defaults asks for user input of an array and sort algo,
@@ -13,7 +13,8 @@ if __name__ == "__main__":
     #     visualizer.call_algo(arr, "insertion_sort", 0.1)
     #     visualizer.show_list()
     # except Exception as ex:
-    #     print("Exception occured, Given function is not defined")
+    #     print(f"Exception occured, Given function is not defined {ex}")
+
     from ui.gui import App
     app = App()
     app.mainloop()
