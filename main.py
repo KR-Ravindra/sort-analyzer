@@ -14,6 +14,7 @@ if __name__ == "__main__":
     #     visualizer.show_list()
     # except Exception as ex:
     #     print(f"Exception occured, Given function is not defined {ex}")
+
     from ui.gui import App
     app = App()
     app.mainloop()
