@@ -2,11 +2,17 @@ import customtkinter
 import os
 from PIL import Image
 import tkinter
+import tkinter as tk
 import random
+import re
+from CTkMessagebox import CTkMessagebox
 
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
+
+    #  # Create a StringVar to store the input
+    #     self.input_var = tk.StringVar()
 
         customtkinter.set_appearance_mode("system")
         customtkinter.set_default_color_theme("blue")
@@ -64,9 +70,13 @@ class App(customtkinter.CTk):
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.sidebar_frame, dynamic_resizing=False,
                                                       values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
         self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
-        self.entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text="Enter Input")
+        # self.entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text="Enter Input",  textvariable = self.input_var)
+
+        self.entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text="Enter Input", validate="key", validatecommand=(self.validate_command, '%P'))
         self.entry.grid(row=2, column=0,  padx=20, pady=10, sticky="nsew")
-        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event)
+        # Bind the <<Modified>> event to the entry widget
+        self.entry.bind("<<Modified>>", self.entry_modified)
+        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.generate_button_event, text="Generate")
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
         self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.generate_random_array, text="Random Input")
         self.sidebar_button_1.grid(row=4, column=0, padx=20, pady=10)
@@ -86,7 +96,7 @@ class App(customtkinter.CTk):
         # self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
        
 
-        self.main_button_1 = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT", command=self.destroy)
+        self.main_button_1 = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT", command=self.destroy_panel)
         self.main_button_1.grid(row=3, column=1, columnspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # create textbox
@@ -166,7 +176,7 @@ class App(customtkinter.CTk):
         self.checkbox_3.grid(row=3, column=0, pady=20, padx=20, sticky="n")
 
         # set default values
-        self.sidebar_button_3.configure(state="disabled", text="Generate")
+        # self.sidebar_button_3.configure(state="disabled", text="Generate")
         self.checkbox_3.configure(state="disabled")
         self.checkbox_1.select()
         self.scrollable_frame_switches[0].select()
@@ -199,6 +209,36 @@ class App(customtkinter.CTk):
     def sidebar_button_event(self):
         print("sidebar_button click")
 
+    def validate_command(self,P):
+        
+        # If the input is empty or matches the pattern of comma-separated integers
+        if P == "" or re.match(r'^(\d+(,\s*\d+)*)?$', P.replace(",", "")):
+            return True
+        else:
+            print('Invalid Input')
+            return False
+        
+    def entry_modified(self, event):
+        # Check if the entry content is not empty
+        if self.entry.get():
+            self.sidebar_button_3.configure(state="normal")
+        else:
+            self.sidebar_button_3.configure(state="disabled")
+
+    def generate_button_event(self):
+      # Retrieve the value of input_var
+        entered_input = self.entry.get()
+        print("The input is: " + entered_input)
+        # self.input_var.set("")  # Clear the entry widget
+        self.entry.delete(0, "end")  # Clear the entry widget
+        # arr = list(map(int, entered_input.split()))
+        # print('array',arr)
+        msg=CTkMessagebox(message="Sorted Array.",
+                  icon="check", option_1="Compare with other algorithms")
+
+        if msg.get()=="Compare with other algorithms":
+            print("Call graph function")
+
     def generate_random_array(self):
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
         random_array = [random.randint(1, 100) for _ in range(10)]
@@ -211,8 +251,8 @@ class App(customtkinter.CTk):
         self.entry.insert(0, array_str)
       
     
-    # def destroy(self):
-    #     # app.destroy()   
+    def destroy_panel(self):
+        self.destroy()   
              
 if __name__ == "__main__":
     app = App()
