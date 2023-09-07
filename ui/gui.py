@@ -2,6 +2,7 @@ import customtkinter
 import os
 from PIL import Image
 import tkinter
+import random
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -57,13 +58,18 @@ class App(customtkinter.CTk):
         # self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
         # self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event)
         # self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.combobox_1 = customtkinter.CTkComboBox(self.sidebar_frame, 
-                                                    values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
-        self.combobox_1.grid(row=1, column=0, padx=20, pady=10)
+        # self.combobox_1 = customtkinter.CTkComboBox(self.sidebar_frame, 
+        #                                            values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
+        # self.combobox_1.grid(row=1, column=0, padx=20, pady=10)
+        self.optionmenu_1 = customtkinter.CTkOptionMenu(self.sidebar_frame, dynamic_resizing=False,
+                                                      values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
+        self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
         self.entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text="Enter Input")
         self.entry.grid(row=2, column=0,  padx=20, pady=10, sticky="nsew")
         self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event)
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
+        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.generate_random_array, text="Random Input")
+        self.sidebar_button_1.grid(row=4, column=0, padx=20, pady=10)
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],
@@ -80,7 +86,7 @@ class App(customtkinter.CTk):
         # self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
        
 
-        self.main_button_1 = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT")
+        self.main_button_1 = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT", command=self.destroy)
         self.main_button_1.grid(row=3, column=1, columnspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # create textbox
@@ -96,12 +102,12 @@ class App(customtkinter.CTk):
         self.tabview.tab("CTkTabview").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
         self.tabview.tab("Tab 2").grid_columnconfigure(0, weight=1)
 
-        self.optionmenu_1 = customtkinter.CTkOptionMenu(self.tabview.tab("CTkTabview"), dynamic_resizing=False,
-                                                        values=["Value 1", "Value 2", "Value Long Long Long"])
-        self.optionmenu_1.grid(row=0, column=0, padx=20, pady=(20, 10))
-        # self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("CTkTabview"),
-        #                                             values=["Value 1", "Value 2", "Value Long....."])
-        # self.combobox_1.grid(row=1, column=0, padx=20, pady=(10, 10))
+        # self.optionmenu_1 = customtkinter.CTkOptionMenu(self.tabview.tab("CTkTabview"), dynamic_resizing=False,
+        #                                                 values=["Value 1", "Value 2", "Value Long Long Long"])
+        # self.optionmenu_1.grid(row=0, column=0, padx=20, pady=(20, 10))
+        self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("CTkTabview"),
+                                                    values=["Value 1", "Value 2", "Value Long....."])
+        self.combobox_1.grid(row=1, column=0, padx=20, pady=(10, 10))
         self.string_input_button = customtkinter.CTkButton(self.tabview.tab("CTkTabview"), text="Open CTkInputDialog",
                                                            command=self.open_input_dialog_event)
         self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
@@ -168,8 +174,9 @@ class App(customtkinter.CTk):
         self.radio_button_3.configure(state="disabled")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
-        self.optionmenu_1.set("CTkOptionmenu")
-        self.combobox_1.set("Algorithms")
+        # self.optionmenu_1.set("CTkOptionmenu")
+        self.optionmenu_1.set("Algorithms")
+        self.combobox_1.set("CTkCombobox")
         self.slider_1.configure(command=self.progressbar_2.set)
         self.slider_2.configure(command=self.progressbar_3.set)
         self.progressbar_1.configure(mode="indeterminnate")
@@ -191,9 +198,22 @@ class App(customtkinter.CTk):
 
     def sidebar_button_event(self):
         print("sidebar_button click")
-    
 
-        
+    def generate_random_array(self):
+        # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
+        random_array = [random.randint(1, 100) for _ in range(10)]
+    
+     # Convert the array to a string for display
+        array_str = ', '.join(map(str, random_array))
+
+    # Update the Entry widget with the generated array
+        self.entry.delete(0, "end")  # Clear the previous content
+        self.entry.insert(0, array_str)
+      
+    
+    # def destroy(self):
+    #     # app.destroy()   
+             
 if __name__ == "__main__":
     app = App()
     app.mainloop()
