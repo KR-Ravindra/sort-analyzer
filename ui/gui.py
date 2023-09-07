@@ -118,7 +118,7 @@ class App(customtkinter.CTk):
                     from plotter.visualizer import Visualizer
                     
                     self.canvas_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
-                    self.canvas_frame.grid(row=0, column=1, rowspan=7, sticky="nsew")
+                    self.canvas_frame.grid(row=0, column=1, rowspan=2, sticky="nsew")
                     self.canvas_frame.grid_rowconfigure(4, weight=1)
                     # self.canvas_frame.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
                     
