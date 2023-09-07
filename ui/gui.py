@@ -11,7 +11,6 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-
         customtkinter.set_appearance_mode("system")
         customtkinter.set_default_color_theme("blue")
         self.title("SORT ANALYZER")
@@ -58,17 +57,10 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="SortAnalyzer", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
-        # self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event)
-        # self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
-        # self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event)
-        # self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        # self.combobox_1 = customtkinter.CTkComboBox(self.sidebar_frame, 
-        #                                            values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
-        # self.combobox_1.grid(row=1, column=0, padx=20, pady=10)
+    
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.sidebar_frame, dynamic_resizing=False,
                                                       values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
         self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
-        # self.entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text="Enter Input",  textvariable = self.input_var)
 
         self.entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text="Enter Input", validate="key", validatecommand=(self.validate_command, '%P'))
         self.entry.grid(row=2, column=0,  padx=20, pady=10, sticky="nsew")
@@ -89,11 +81,7 @@ class App(customtkinter.CTk):
                                                                command=self.change_scaling_event)
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
-        # create main entry and button
-        # self.entry = customtkinter.CTkEntry(self, placeholder_text="CTkEntry")
-        # self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
-       
-
+      
         self.main_button_1 = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT", command=self.destroy_panel)
         self.main_button_1.grid(row=3, column=1, columnspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
@@ -110,9 +98,6 @@ class App(customtkinter.CTk):
         self.tabview.tab("CTkTabview").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
         self.tabview.tab("Tab 2").grid_columnconfigure(0, weight=1)
 
-        # self.optionmenu_1 = customtkinter.CTkOptionMenu(self.tabview.tab("CTkTabview"), dynamic_resizing=False,
-        #                                                 values=["Value 1", "Value 2", "Value Long Long Long"])
-        # self.optionmenu_1.grid(row=0, column=0, padx=20, pady=(20, 10))
         self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("CTkTabview"),
                                                     values=["Value 1", "Value 2", "Value Long....."])
         self.combobox_1.grid(row=1, column=0, padx=20, pady=(10, 10))
@@ -152,15 +137,11 @@ class App(customtkinter.CTk):
             self.scrollable_frame_switches.append(switch)
 
         # set default values
-        # self.sidebar_button_3.configure(state="disabled", text="Generate")
-     
         self.scrollable_frame_switches[0].select()
         self.scrollable_frame_switches[4].select()
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
-        # self.optionmenu_1.set("CTkOptionmenu")
         self.optionmenu_1.set("Algorithms")
-        self.combobox_1.set("CTkCombobox")
         self.slider_1.configure(command=self.progressbar_2.set)
         self.slider_2.configure(command=self.progressbar_3.set)
         self.progressbar_1.configure(mode="indeterminnate")
@@ -180,8 +161,7 @@ class App(customtkinter.CTk):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
 
-    def sidebar_button_event(self):
-        print("sidebar_button click")
+   
 
     def validate_command(self,data):
         
@@ -202,24 +182,23 @@ class App(customtkinter.CTk):
     def generate_button_event(self):
       # Retrieve the value of input_var
         self.entered_input = self.entry.get()
-        self.entered_input = [int(num.strip()) for num in self.entered_input.split(",")]
-        
+       
+        try: 
+            self.entered_input = [int(num.strip()) for num in self.entered_input.split(",")]
+        except Exception as ex:
+            CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
+            return
+
+    
         from plotter.visualizer import Visualizer
         visualizer = Visualizer(self.entered_input)
-        try:
-            _ = visualizer.compare_algo()
-        except Exception as ex:
-            print(f"Exception occured, Given function is not defined {ex}")
+        _ = visualizer.compare_algo()
+        msg=CTkMessagebox(message="Sorted Array.",
+            icon="check", option_1="Compare with other algorithms")
+            
+        if msg.get()=="Compare with other algorithms":
+            visualizer.show_list()
 
-        if True:
-            msg=CTkMessagebox(message="Sorted Array.",
-                  icon="check", option_1="Compare with other algorithms")
-
-            if msg.get()=="Compare with other algorithms":
-                visualizer.show_list()
-
-        else:
-            CTkMessagebox(title="Error", message="Invalid input! Try again!!", icon="cancel")
         self.entry.delete(0, "end") 
 
         
@@ -227,10 +206,8 @@ class App(customtkinter.CTk):
     def generate_random_array(self):
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
         random_array = [random.randint(1, 100) for _ in range(10)]
-    
         # Convert the array to a string for display
         array_str = ', '.join(map(str, random_array))
-
         # Update the Entry widget with the generated array
         self.entry.delete(0, "end")  # Clear the previous content
         self.entry.insert(0, array_str)
