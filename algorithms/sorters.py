@@ -49,12 +49,12 @@ class Sorters():
     
     Initialization Parameters: algo_choice: Choice of Algorithm, unsorted_elements: List
     """
-    def __init__(self, algo_choice: str, unsorted_elements: list) -> None:
-        self.function = eval(algo_choice) # "insertion_sort" > insertion_sort
+    def __init__(self, unsorted_elements: list) -> None:
         self.unsorted_elements = unsorted_elements
     
-    def start_sorting(self):
+    def start_sorting(self, algo_choice: str):
         # To start sorting, called by instance of visualizer
+        self.function = eval(algo_choice) # "insertion_sort" > insertion_sort
         return self.function(self.unsorted_elements) # return insertion_sort(unsorted_elements)
     
 if __name__ == "__main__":

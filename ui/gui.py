@@ -243,10 +243,10 @@ class App(customtkinter.CTk):
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
         random_array = [random.randint(1, 100) for _ in range(10)]
     
-     # Convert the array to a string for display
+        # Convert the array to a string for display
         array_str = ', '.join(map(str, random_array))
 
-    # Update the Entry widget with the generated array
+        # Update the Entry widget with the generated array
         self.entry.delete(0, "end")  # Clear the previous content
         self.entry.insert(0, array_str)
       
