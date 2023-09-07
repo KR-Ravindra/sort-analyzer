@@ -57,9 +57,6 @@ class Visualizer():
     def show_list(self):
         # Displays graph, called by instance of GUI
         plt.show()
-    
-            
-        
 
         
 if __name__ == "__main__":

@@ -209,10 +209,10 @@ class App(customtkinter.CTk):
     def sidebar_button_event(self):
         print("sidebar_button click")
 
-    def validate_command(self,P):
+    def validate_command(self,data):
         
         # If the input is empty or matches the pattern of comma-separated integers
-        if P == "" or re.match(r'^(\d+(,\s*\d+)*)?$', P.replace(",", "")):
+        if data == re.match(r'^(\d+(,\s*\d+)*)?$',str(data)):
             return True
         else:
             print('Invalid Input')
@@ -227,17 +227,28 @@ class App(customtkinter.CTk):
 
     def generate_button_event(self):
       # Retrieve the value of input_var
-        entered_input = self.entry.get()
-        print("The input is: " + entered_input)
-        # self.input_var.set("")  # Clear the entry widget
-        self.entry.delete(0, "end")  # Clear the entry widget
-        # arr = list(map(int, entered_input.split()))
-        # print('array',arr)
-        msg=CTkMessagebox(message="Sorted Array.",
+        self.entered_input = self.entry.get()
+        self.entered_input = [int(num.strip()) for num in self.entered_input.split(",")]
+        
+        from plotter.visualizer import Visualizer
+        visualizer = Visualizer(self.entered_input)
+        try:
+            _ = visualizer.compare_algo()
+        except Exception as ex:
+            print(f"Exception occured, Given function is not defined {ex}")
+
+        if True:
+            msg=CTkMessagebox(message="Sorted Array.",
                   icon="check", option_1="Compare with other algorithms")
 
-        if msg.get()=="Compare with other algorithms":
-            print("Call graph function")
+            if msg.get()=="Compare with other algorithms":
+                visualizer.show_list()
+
+        else:
+            CTkMessagebox(title="Error", message="Invalid input! Try again!!", icon="cancel")
+        self.entry.delete(0, "end") 
+
+        
 
     def generate_random_array(self):
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
