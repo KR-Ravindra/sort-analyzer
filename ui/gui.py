@@ -54,7 +54,7 @@ class App(customtkinter.CTk):
         self.appearance_mode_optionemenu.set("System")
         self.scaling_optionemenu.set("100%")
         self.optionmenu_1.set("Algorithms")
-        self.main_button_1 = customtkinter.CTkButton(master=self, text="QUIT", command=self.destroy_panel)
+        self.main_button_1 = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="QUIT", command=self.destroy_panel)
         self.main_button_1.grid(row=3, column=1, columnspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
     def center_window(self,width, height):  # Return for values needed to center Window
