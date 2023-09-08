@@ -92,7 +92,6 @@ class App(customtkinter.CTk):
     def generate_button_event(self):
       # Retrieve the value of input_var
         self.entered_input = self.entry.get()
-       
         try: 
             self.entered_input = [int(num.strip()) for num in self.entered_input.split(",")]
         except Exception as ex:
@@ -102,13 +101,16 @@ class App(customtkinter.CTk):
     
         from plotter.visualizer import Visualizer
         self.visualizer = Visualizer(self.entered_input)
+        # runs in background; doesnt interrupt process flow
         try:
+            _, sorted_array, execution_time = self.visualizer.call_algo(self.optionmenu_1.get().lower().replace(" ","_"))
             _ = self.visualizer.compare_algo()
         except Exception as ex:
-            print(f"Exception occured, Given function is not defined {ex}")
+            CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
+            return
 
         if True:
-            msg=CTkMessagebox(message="Sorted Array.",
+            msg=CTkMessagebox(message=f"Sorted Array: {sorted_array}\n Time Taken: {execution_time}",
                   icon="check", option_1="Compare with other algorithms")
 
             if msg.get()=="Compare with other algorithms":

@@ -28,17 +28,16 @@ class Visualizer():
         self.dataset = self.unsorted_elements
         self.no_of_elements = len(self.dataset)
         
-        _, steps_recording, execution_time = self.sorters.start_sorting(self.algo_choice) #gets all the iterations from sorters instance
-        # TODO: capture and post execution time in legend slot
+        sorted_array, steps_recording, execution_time = self.sorters.start_sorting(self.algo_choice) #gets all the iterations from sorters instance
         
-        for step in steps_recording: # plots and records graph for each step
-            self.ax.clear()
-            bar = self.ax.bar(range(self.no_of_elements), step)
-            self.ax.set_title(f'{self.algo_choice} Visualization')
-            self.ax.bar_label(bar, labels = step)
-            plt.pause(speed) #Implements speed control on UI
+        # for step in steps_recording: # plots and records graph for each step
+        #     self.ax.clear()
+        #     bar = self.ax.bar(range(self.no_of_elements), step)
+        #     self.ax.set_title(f'{self.algo_choice} Visualization')
+        #     self.ax.bar_label(bar, labels = step)
+        #     plt.pause(speed) #Implements speed control on UI
         
-        return self.fig
+        return self.fig, sorted_array, execution_time
     
     def compare_algo(self):
         self.available_algos = ["bubble_sort", "insertion_sort"]
@@ -56,9 +55,9 @@ class Visualizer():
         self.ax.bar_label(bar, labels = self.available_algos)
         return self.fig
     
-    def show_list(self):
-        # Displays graph, called by instance of GUI
-        plt.show()
+    # def show_list(self):
+    #     # Displays graph, called by instance of GUI
+    #     plt.show()
 
         
 if __name__ == "__main__":
