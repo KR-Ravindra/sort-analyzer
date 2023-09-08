@@ -42,6 +42,44 @@ def insertion_sort(arr):
         steps.append(list(arr)) # Appends into the recording, each time the items are altered 
     return arr, steps, (time.time() - start)
 
+import time
+
+def quick_sort(arr):
+    """
+    Implements Quick Sort. Sorters object call this function.
+
+    Input: List of integers
+    Output: Sorted Array, List of arrays (every partition during sort), execution time
+    """
+    def partition(arr, low, high, steps):
+        pivot = arr[high]
+        i = low - 1
+
+        for j in range(low, high):
+            if arr[j] <= pivot:
+                i += 1
+                arr[i], arr[j] = arr[j], arr[i]
+                steps.append(list(arr))
+
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        steps.append(list(arr))
+
+        return i + 1
+
+    def quick_sort_recursive(arr, low, high, steps):
+        if low < high:
+            pivot_index = partition(arr, low, high, steps)
+            quick_sort_recursive(arr, low, pivot_index - 1, steps)
+            quick_sort_recursive(arr, pivot_index + 1, high, steps)
+
+    steps = []  # Recording initialization for steps
+    start = time.time()  # Recording start time
+
+    quick_sort_recursive(arr, 0, len(arr) - 1, steps)
+
+    return arr, steps, time.time() - start
+
+
 class Sorters():
     """
     Responsible for calling each algorithm. This is exposed to visualizer.
