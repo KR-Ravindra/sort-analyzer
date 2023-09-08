@@ -37,7 +37,7 @@ class Visualizer():
         #     self.ax.bar_label(bar, labels = step)
         #     plt.pause(speed) #Implements speed control on UI
         
-        return self.fig, sorted_array, execution_time
+        return self.fig, sorted_array, execution_time, steps_recording
     
     def compare_algo(self):
         self.available_algos = ["bubble_sort", "insertion_sort"]

@@ -37,7 +37,6 @@ def insertion_sort(arr):
         while j >=0 and key < arr[j]:
             arr[j+1] = arr[j]
             j -= 1
-            steps.append(list(arr)) 
         arr[j+1] = key
         steps.append(list(arr)) # Appends into the recording, each time the items are altered 
     return arr, steps, (time.time() - start)
