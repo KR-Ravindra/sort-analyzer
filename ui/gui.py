@@ -7,7 +7,7 @@ class App(customtkinter.CTk):
         super().__init__()
 
         customtkinter.set_appearance_mode("system")
-        customtkinter.set_default_color_theme("green")
+        customtkinter.set_default_color_theme("blue")
         self.title("SORT ANALYZER")
         x, y = self.center_window(800, 600)
         self.geometry(f"800x600+{x}+{y}")
@@ -24,7 +24,7 @@ class App(customtkinter.CTk):
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,
-                                                      values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
+                                                      values=[ "Bubble Sort", "Counting Sort","Heap Sort","Insertion Sort","Merge Sort","Quick Sort"])
         self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
         self.entry = customtkinter.CTkEntry(self.left_sidebar_frame, placeholder_text="Enter Input")
         self.entry.grid(row=2, column=0,  padx=20, pady=10, sticky="nsew")
@@ -124,6 +124,7 @@ class App(customtkinter.CTk):
         canvas = FigureCanvasTkAgg(figure , master=self.canvas_frame)
         canvas_widget = canvas.get_tk_widget()
         canvas_widget.pack(fill=tk.BOTH, expand=True)
+        self.entry.delete(0, "end")
     
     def generate_random_array(self):
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
