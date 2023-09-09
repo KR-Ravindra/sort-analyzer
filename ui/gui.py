@@ -7,7 +7,7 @@ class App(customtkinter.CTk):
         super().__init__()
 
         customtkinter.set_appearance_mode("system")
-        customtkinter.set_default_color_theme("green")
+        customtkinter.set_default_color_theme("blue")
         self.title("SORT ANALYZER")
         x, y = self.center_window(800, 600)
         self.geometry(f"800x600+{x}+{y}")
