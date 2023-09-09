@@ -131,7 +131,7 @@ class App(customtkinter.CTk):
             all_steps = all_steps+f"Step{i}: {sublist}\n"
             
         msg=CTkMessagebox(title="Get Steps", message=f"{all_steps}",
-            icon="check", option_1="Compare with other algorithms", option_2="Close", width = 700, height = 300, fade_in_duration = 2)
+            icon="check", option_1="Compare with other algorithms", option_2="Close", width = 600, height = 300, fade_in_duration = 2)
         
         if msg.get()=="Compare with other algorithms":
             self.compare_with_other_algorithms()
