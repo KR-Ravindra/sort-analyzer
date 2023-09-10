@@ -107,14 +107,33 @@ class App(customtkinter.CTk):
             self.entry.delete(0, "end") 
 
         msg=CTkMessagebox(title="Sorted",message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
-                icon="check", option_1="Compare with other algorithms", option_2="No! I am good!", option_3="Get Steps", width = 700, height = 300, fade_in_duration = 4)
+                icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
 
-        if msg.get()=="Compare with other algorithms":
+        if msg.get()=="Compare":
             self.compare_with_other_algorithms()
         
         if msg.get()=="Get Steps":
             self.get_steps()
         self.entry.delete(0, "end") 
+
+        if msg.get()=="Live":
+            self.watch_live()
+
+
+    def watch_live(self):
+        self.visualizer.call_algo_with_live()
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+                icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
+
+        if msg.get()=="Compare":
+            self.compare_with_other_algorithms()
+        
+        if msg.get()=="Get Steps":
+            self.get_steps()
+        self.entry.delete(0, "end") 
+
+        if msg.get()=="Live":
+            self.watch_live()
 
     def get_steps(self):
         all_steps=""
