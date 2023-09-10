@@ -1,6 +1,10 @@
+import re
+
 import customtkinter
 import random
 from CTkMessagebox import CTkMessagebox
+from tkinter import *
+from tkinter import messagebox
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -26,22 +30,44 @@ class App(customtkinter.CTk):
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,
                                                       values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
         self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
+        vcmd = (self.left_sidebar_frame.register(self.callback))
+
+        ###############33
+        # self.entry = Entry(self.left_sidebar_frame, validate='key', validatecommand=(vcmd, '%P'))
+        # self.entry.grid()
+
+        ###############3
+
+
         self.entry = customtkinter.CTkEntry(self.left_sidebar_frame, placeholder_text="Enter Input")
         self.entry.grid(row=2, column=0,  padx=20, pady=10, sticky="nsew")
         self.sorting_button = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_button_event, text="Sorting")
         self.sorting_button.grid(row=3, column=0, padx=20, pady=10)
-        self.random_input_btn = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_random_array, text="Random Input")
-        self.random_input_btn.grid(row=4, column=0, padx=20, pady=10)
+        self.random_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Random Inputs",
+                                                   font=customtkinter.CTkFont(size=15, weight="bold"))
+        self.random_label.grid(row=4, column=0, padx=20, pady=(20, 10))
+        self.random_input_btn_100 = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_random_array_100,
+                                                        text="100")
+        self.random_input_btn_100.grid(row=5, column=0, padx=20, pady=10)
+        self.random_input_btn_1000 = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_random_array_1000,
+                                                        text="1000")
+        self.random_input_btn_1000.grid(row=5, column=1, padx=10, pady=10)
+        self.random_input_btn_10000 = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_random_array_10000,
+                                                        text="10000")
+        self.random_input_btn_10000.grid(row=6, column=0, padx=10, pady=10)
+        self.random_input_btn_100000 = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_random_array_100000,
+                                                        text="100000")
+        self.random_input_btn_100000.grid(row=6, column=1, padx=10, pady=10)
         self.appearance_mode_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Appearance Mode:", anchor="w")
-        self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
+        self.appearance_mode_label.grid(row=7, column=0, padx=20, pady=(10, 0))
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.left_sidebar_frame, values=["Light", "Dark", "System"],
                                                                        command=self.change_appearance_mode_event)
-        self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
+        self.appearance_mode_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 10))
         self.scaling_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="UI Scaling:", anchor="w")
-        self.scaling_label.grid(row=7, column=0, padx=20, pady=(10, 0))
+        self.scaling_label.grid(row=9, column=0, padx=20, pady=(10, 0))
         self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.left_sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
                                                                command=self.change_scaling_event)
-        self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
+        self.scaling_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 20))
 
         self.optionmenu_1.set("Select Algorithms")
         self.appearance_mode_optionemenu.set("System")
@@ -50,6 +76,14 @@ class App(customtkinter.CTk):
         self.quit_button = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT", command=self.destroy_panel)
         self.quit_button.grid(row=3, column=1, columnspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
+    def callback(self, P):
+        # print(P, "========")
+        # Custom validation function to allow only valid comma-separated integers
+        if P == "" or re.match(r'^\d+(,\d+)*$', P.replace(",", "")):
+            return True
+        else:
+            messagebox.showerror("Invalid Input", "Please enter valid comma-separated integers.")
+            return False
 
     def center_window(self,width, height):  # Return for values needed to center Window
         screen_width = self.winfo_screenwidth()  # Width of the screen
@@ -125,9 +159,43 @@ class App(customtkinter.CTk):
         canvas_widget = canvas.get_tk_widget()
         canvas_widget.pack(fill=tk.BOTH, expand=True)
     
-    def generate_random_array(self):
+    def generate_random_array_100(self):
+        print(self.__dict__, "==========")
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
-        random_array = [random.randint(1, 100) for _ in range(10)]
+        random_array = [random.randint(1, 100) for _ in range(1000)]
+        # Convert the array to a string for display
+        array_str = ', '.join(map(str, random_array))
+        # Update the Entry widget with the generated array
+        self.entry.delete(0, "end")  # Clear the previous content
+        self.entry.insert(0, array_str)
+        self.optionmenu_1.set("Bubble Sort")
+
+    def generate_random_array_1000(self):
+        print(self.__dict__, "==========")
+        # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
+        random_array = [random.randint(1, 100) for _ in range(1000)]
+        # Convert the array to a string for display
+        array_str = ', '.join(map(str, random_array))
+        # Update the Entry widget with the generated array
+        self.entry.delete(0, "end")  # Clear the previous content
+        self.entry.insert(0, array_str)
+        self.optionmenu_1.set("Bubble Sort")
+
+    def generate_random_array_10000(self):
+        print(self.__dict__, "==========")
+        # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
+        random_array = [random.randint(1, 100) for _ in range(10000)]
+        # Convert the array to a string for display
+        array_str = ', '.join(map(str, random_array))
+        # Update the Entry widget with the generated array
+        self.entry.delete(0, "end")  # Clear the previous content
+        self.entry.insert(0, array_str)
+        self.optionmenu_1.set("Bubble Sort")
+
+    def generate_random_array_100000(self):
+        print(self.__dict__, "==========")
+        # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
+        random_array = [random.randint(1, 100) for _ in range(100000)]
         # Convert the array to a string for display
         array_str = ', '.join(map(str, random_array))
         # Update the Entry widget with the generated array
