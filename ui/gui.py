@@ -3,15 +3,17 @@ import re
 import customtkinter
 import random
 from CTkMessagebox import CTkMessagebox
-from tkinter import *
-from tkinter import messagebox
+from PIL import Image, ImageTk
+
 
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
+        self.display=False
+
         customtkinter.set_appearance_mode("system")
-        customtkinter.set_default_color_theme("green")
+        customtkinter.set_default_color_theme("blue")
         self.title("SORT ANALYZER")
         x, y = self.center_window(800, 600)
         self.geometry(f"800x600+{x}+{y}")
@@ -28,20 +30,11 @@ class App(customtkinter.CTk):
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,
-                                                      values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort"])
+                                                      values=[ "Bubble Sort", "Counting Sort","Heap Sort","Insertion Sort","Merge Sort","Quick Sort"])
         self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
-        vcmd = (self.left_sidebar_frame.register(self.callback))
-
-        ###############33
-        # self.entry = Entry(self.left_sidebar_frame, validate='key', validatecommand=(vcmd, '%P'))
-        # self.entry.grid()
-
-        ###############3
-
-
         self.entry = customtkinter.CTkEntry(self.left_sidebar_frame, placeholder_text="Enter Input")
         self.entry.grid(row=2, column=0,  padx=20, pady=10, sticky="nsew")
-        self.sorting_button = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_button_event, text="Sorting")
+        self.sorting_button = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_button_event, text="Sort Me")
         self.sorting_button.grid(row=3, column=0, padx=20, pady=10)
         self.random_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Random Inputs",
                                                    font=customtkinter.CTkFont(size=15, weight="bold"))
@@ -76,14 +69,15 @@ class App(customtkinter.CTk):
         self.quit_button = customtkinter.CTkButton(master=self, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"),text="QUIT", command=self.destroy_panel)
         self.quit_button.grid(row=3, column=1, columnspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
-    def callback(self, P):
-        # print(P, "========")
-        # Custom validation function to allow only valid comma-separated integers
-        if P == "" or re.match(r'^\d+(,\d+)*$', P.replace(",", "")):
-            return True
-        else:
-            messagebox.showerror("Invalid Input", "Please enter valid comma-separated integers.")
-            return False
+        if not self.display:
+            image_path="ui/test_images/minion_home_screen.png"
+            # Open the image using PIL
+            image = Image.open(image_path)
+            # Create a CTkImage object with the image and size
+            custom_image = customtkinter.CTkImage(light_image=image, size=(600, 500))
+            # Create a CTkLabel widget to display the image
+            label = customtkinter.CTkLabel(self, image=custom_image)
+            label.grid(row=0, column=1, rowspan=2, sticky="nsew")
 
     def center_window(self,width, height):  # Return for values needed to center Window
         screen_width = self.winfo_screenwidth()  # Width of the screen
@@ -100,6 +94,7 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def generate_button_event(self):
+        self.display=True
       # Retrieve the value of input_var
         self.entered_input = self.entry.get()
         try: 
@@ -158,7 +153,8 @@ class App(customtkinter.CTk):
         canvas = FigureCanvasTkAgg(figure , master=self.canvas_frame)
         canvas_widget = canvas.get_tk_widget()
         canvas_widget.pack(fill=tk.BOTH, expand=True)
-    
+        self.entry.delete(0, "end")
+
     def generate_random_array_100(self):
         print(self.__dict__, "==========")
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)

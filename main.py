@@ -7,7 +7,5 @@ if __name__ == "__main__":
 
     from ui.gui import App
     app = App()
-    if app.mainloop():
-        exit()
-    
-
+    app.mainloop()
+    exit()
