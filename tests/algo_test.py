@@ -9,8 +9,8 @@ def test_bubble_sort_sorted_array():
     expected_output = [1, 2, 3, 4, 5]
     expected_steps = []
 
-    sorter = Sorters("bubble_sort" , input_array)
-    output_array, output_steps,_ = sorter.start_sorting()
+    sorter = Sorters(input_array)
+    output_array, output_steps,_ = sorter.start_sorting("bubble_sort")
 
     assert output_array == expected_output
     assert output_steps == expected_steps
@@ -32,8 +32,8 @@ def test_bubble_sort_unsorted_array():
                     [2, 1, 3, 4, 5],
                     [1, 2, 3, 4, 5]]
 
-    sorter = Sorters("bubble_sort" , input_array)
-    output_array, output_steps,_ = sorter.start_sorting()
+    sorter = Sorters( input_array)
+    output_array, output_steps,_ = sorter.start_sorting("bubble_sort")
 
     assert output_array == expected_output
     assert output_steps == expected_steps
@@ -46,8 +46,8 @@ def test_bubble_sort_empty_array():
     expected_output = []
     expected_steps = []
 
-    sorter = Sorters("bubble_sort" , input_array)
-    output_array, output_steps,_ = sorter.start_sorting()
+    sorter = Sorters( input_array)
+    output_array, output_steps,_ = sorter.start_sorting("bubble_sort")
 
     assert output_array == expected_output
     assert output_steps == expected_steps
