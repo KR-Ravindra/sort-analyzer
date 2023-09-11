@@ -41,7 +41,6 @@ def insertion_sort(arr):
         steps.append(list(arr)) # Appends into the recording, each time the items are altered 
     return arr, steps, (time.time() - start)
 
-import time
 
 def quick_sort(arr):
     """
@@ -76,8 +75,127 @@ def quick_sort(arr):
 
     quick_sort_recursive(arr, 0, len(arr) - 1, steps)
 
-    return arr, steps, time.time() - start
+    return arr, steps, (time.time() - start)
 
+# Python program for implementation of MergeSort
+
+
+def merge_sort(arr):
+    steps = []
+    start = time.time()
+    steps.append(list(arr))               
+    if len(arr) > 1:
+        mid = len(arr)//2
+        L = arr[:mid]
+
+		# Into 2 halves
+        R = arr[mid:]
+
+		# Sorting the first half
+        merge_sort(L)
+
+		# Sorting the second half
+        merge_sort(R)
+
+        i = j = k = 0
+
+		# Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+		# Checking if any element was left
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+    steps.append(list(arr))               
+    return arr, steps, (time.time() - start)
+
+def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < n and arr[l] > arr[largest]:
+        largest = l
+    if r < n and arr[r] > arr[largest]:
+        largest = r
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heap_sort(arr):
+    steps = []
+    start = time.time()
+    n = len(arr)
+    for i in range(n//2 - 1, -1, -1):
+        steps.append(list(arr))
+        heapify(arr, n, i)
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        steps.append(list(arr))
+        heapify(arr, i, 0)
+    return arr, steps, (time.time() - start)
+
+
+def radix_sort(arr):
+    steps = []
+    start = time.time()
+    max_num = max(arr)
+    exp = 1
+    n = len(arr)
+    output = [0] * n
+    
+    while max_num // exp > 0:
+        counting = [0] * 10
+        for i in arr:
+            counting[(i // exp) % 10] += 1
+        for i in range(1, 10):
+            counting[i] += counting[i-1]
+        for i in range(n-1, -1, -1):
+            output[counting[(arr[i] // exp) % 10] - 1] = arr[i]
+            counting[(arr[i] // exp) % 10] -= 1
+            steps.append(list(arr))
+        for i in range(n):
+            arr[i] = output[i]
+        exp *= 10
+        steps.append(list(arr))
+    return arr, steps, (time.time() - start)
+
+def counting_sort(arr):
+    steps = []
+    start = time.time()
+    max_val = max(arr)
+    count = [0] * (max_val + 1)
+    output = [-1] * len(arr)
+    for i in arr:
+        count[i] += 1
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    for i in range(len(arr) - 1, -1, -1):
+        output[count[arr[i]] - 1] = arr[i]
+        steps.append(list(arr))
+        count[arr[i]] -= 1
+    for i in range(len(arr)):
+        arr[i] = output[i]
+        
+    return arr, steps, (time.time() - start)
+
+    
+
+# User input and demo
+arr = list(map(float, input("Enter space-separated numbers: ").split()))
+sorted_arr = bucket_sort(arr)
+print("Sorted Array:", sorted_arr)
 
 class Sorters():
     """

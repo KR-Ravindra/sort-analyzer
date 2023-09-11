@@ -40,7 +40,8 @@ class Visualizer():
         return self.fig, sorted_array, execution_time, steps_recording
     
     def compare_algo(self):
-        self.available_algos = ["bubble_sort","heap_sort","insertion_sort","merge_sort","quick_sort"]
+        self.available_algos = ["bubble_sort", "insertion_sort", "merge_sort", "quick_sort","heap_sort","radix_sort"]
+
         execution_times = []
                 
         for each_algo in self.available_algos:
