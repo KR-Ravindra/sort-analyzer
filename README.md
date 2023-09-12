@@ -34,10 +34,5 @@ $ export PYTHONPATH=$PYTHONPATH:$PWD/algorithms
 $ pytest # Run all test cases with coverage report
 ```
 
-## TODO
-- [x] Live Sorting
-- [ ] Facility to compare across all available algorithms 
-- [x] Speed control on sorting
-- [ ] Multiple algorithms from visualizer at once
 
 > This is a group assignment for CPSC 535 class for semester Fall 2023 at Cal State University, Fullerton
