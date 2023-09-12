@@ -16,6 +16,14 @@ class Visualizer():
         self.unsorted_elements = unsorted_elements
         self.fig, self.ax = plt.subplots()
         self.sorters = Sorters(unsorted_elements)
+        # Custom metallic colors
+        self.metallic_colors = ['#FFD700', '#C0C0C0', '#CD7F32', '#DAA520', '#A8A8A8', '#808080', '#B87333', '#FFC0CB', '#008080','#E6E8FA']
+
+    def colorize(self, arr):
+        # Normalize values to use the colormap properly
+        norm = plt.Normalize(min(arr), max(arr))
+        colors = [self.metallic_colors[int(norm(val) * (len(self.metallic_colors) - 1))] for val in arr]
+        return colors
 
     
     def call_algo(self, algo_choice: str, speed: int = 1):
