@@ -4,7 +4,7 @@
 An alogrithm efficiency analyzer tool for few famous sort algorithms
 
 ## Pre-requesties
-* Python 3.6+ (tested on python version: `Python 3.11`)
+* Python 3.6+ (tested on python version: `Python 3.11` - Mac OS)
 
 ## Setup
 ```bash
