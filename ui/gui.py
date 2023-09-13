@@ -5,14 +5,17 @@ from PIL import Image, ImageTk
 
 
 class App(customtkinter.CTk):
+    '''
+    This class is responsible for creating the GUI and handling the events
+    Workflow: UserInput/GUI >> Visualizer >> Sorters
+    '''
     def __init__(self):
-        super().__init__()
-
+        super().__init__()        
         self.display=False
 
         customtkinter.set_appearance_mode("system")
         customtkinter.set_default_color_theme("blue")
-        self.title("SORT ANALYZER")
+        self.title("SORTING VISUALIZER")
         x, y = self.center_window(800, 600)
         self.geometry(f"800x600+{x}+{y}")
         # configure grid layout (4x4)
@@ -24,7 +27,7 @@ class App(customtkinter.CTk):
         self.left_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.left_sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
         self.left_sidebar_frame.grid_rowconfigure(4, weight=1)
-        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="SortAnalyzer", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Sort Analyzer", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,
@@ -37,6 +40,8 @@ class App(customtkinter.CTk):
         self.sorting_button.grid(row=3, column=0, padx=20, pady=10)
         self.random_input_btn = customtkinter.CTkButton(self.left_sidebar_frame, command=self.generate_random_array, text="Random Input")
         self.random_input_btn.grid(row=4, column=0, padx=20, pady=10)
+
+        
         self.appearance_mode_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.left_sidebar_frame, values=["Light", "Dark", "System"],
@@ -79,9 +84,9 @@ class App(customtkinter.CTk):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
 
-    def generate_button_event(self):
+    def generate_button_event(self):        
         self.display=True
-      # Retrieve the value of input_var
+        # Retrieve the value of input_var
         self.entered_input = self.entry.get()
         try: 
             self.entered_input = [int(num.strip()) for num in self.entered_input.split(",")]
@@ -96,12 +101,12 @@ class App(customtkinter.CTk):
         # runs in background; doesnt interrupt process flow
         try:
             _, self.sorted_array, self.execution_time, self.steps_recording = self.visualizer.call_algo(self.optionmenu_1.get().lower().replace(" ","_"))
-            _ = self.visualizer.compare_algo()
+            self.figure = self.visualizer.compare_algo()
         except Exception as ex:
             CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
             self.entry.delete(0, "end") 
 
-        msg=CTkMessagebox(message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
                 icon="check", option_1="Compare with other algorithms", option_2="No! I am good!", option_3="Get Steps", width = 700, height = 300, fade_in_duration = 4)
 
         if msg.get()=="Compare with other algorithms":
@@ -115,15 +120,20 @@ class App(customtkinter.CTk):
         all_steps=""
         for i, sublist in enumerate(self.steps_recording, start=1):
             all_steps = all_steps+f"Step{i}: {sublist}\n"
-            
-        msg=CTkMessagebox(title="Get Steps", message=f"{all_steps}",
-            icon="check", option_1="Compare with other algorithms", option_2="Close", width = 600, height = 300, fade_in_duration = 2)
+        
+        if len(self.steps_recording)>15:
+            all_steps = all_steps.replace(all_steps.split("\n")[5], "...")
+            all_steps = all_steps.replace(all_steps.split("\n")[-5], "...")
+            all_steps = "\n".join(all_steps.split("\n")[:6]+all_steps.split("\n")[-5:])
+        msg = CTkMessagebox(title="Steps", message=all_steps, 
+                            icon="info", option_1="Compare with other algorithms", option_2="No! I am good!", width = 700, height = 300, fade_in_duration = 4)
         
         if msg.get()=="Compare with other algorithms":
             self.compare_with_other_algorithms()
         
         
     def compare_with_other_algorithms(self):
+
         import tkinter as tk
         from tkinter import ttk
         from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -134,12 +144,13 @@ class App(customtkinter.CTk):
         self.canvas_frame.grid_rowconfigure(4, weight=1)
         # self.canvas_frame.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
         
-        # Create a FigureCanvasTkAgg widget
-        figure =  self.visualizer.compare_algo()
-        canvas = FigureCanvasTkAgg(figure , master=self.canvas_frame)
+        canvas = FigureCanvasTkAgg(self.figure , master=self.canvas_frame)
         canvas_widget = canvas.get_tk_widget()
         canvas_widget.pack(fill=tk.BOTH, expand=True)
         self.entry.delete(0, "end")
+
+        
+        
     
     def generate_random_array(self):
         # Generate an array of random numbers (e.g., 10 numbers between 1 and 100)
@@ -148,7 +159,7 @@ class App(customtkinter.CTk):
         array_str = ', '.join(map(str, random_array))
         # Update the Entry widget with the generated array
         self.entry.delete(0, "end")  # Clear the previous content
-        self.entry.insert(0, array_str)
+        self.entry.insert(0, array_str)        
         self.optionmenu_1.set("Bubble Sort")
       
     

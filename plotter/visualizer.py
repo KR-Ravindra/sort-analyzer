@@ -47,13 +47,26 @@ class Visualizer():
         for each_algo in self.available_algos:
             _,_,execution_time = self.sorters.start_sorting(each_algo)
             execution_times.append(execution_time)
-            
-        print(execution_times)
         
         self.ax.clear()
         bar = self.ax.bar(range(len(self.available_algos)), execution_times)
-        self.ax.set_title(f'Algo Comparision')
-        self.ax.bar_label(bar, labels = self.available_algos)
+        self.ax.set_title(f'Sorting Algorithm Comparision')
+        self.ax.bar_label(bar, labels = [each_algo.replace("_sort","") for each_algo in self.available_algos], label_type= "edge", fmt='%.5f')
+        self.ax.set_xlabel("Sorting Algorithms")
+        self.ax.set_ylabel("Execution Time (in power of -5 seconds)")
+        
+        min_index = execution_times.index(min(execution_times))
+        bar[min_index].set_color("green")
+        
+        self.ax.legend(["Fastest Algorithm"], loc="upper right")
+        
+        # plot a scatter plot instead of bar graph
+        self.ax.scatter(range(len(self.available_algos)), execution_times)
+        self.ax.set_xticks(range(len(self.available_algos)))
+        self.ax.set_xticklabels([each_algo.replace("_sort","") for each_algo in self.available_algos])
+        self.ax.set_yticks(execution_times)
+        self.ax.grid(True)
+        
         return self.fig
     
     # def show_list(self):
