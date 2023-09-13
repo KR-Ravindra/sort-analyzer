@@ -15,7 +15,7 @@ class App(customtkinter.CTk):
 
         customtkinter.set_appearance_mode("system")
         customtkinter.set_default_color_theme("blue")
-        self.title("SORT ANALYZER")
+        self.title("SORTING VISUALIZER")
         x, y = self.center_window(800, 600)
         self.geometry(f"800x600+{x}+{y}")
         # configure grid layout (4x4)
@@ -27,7 +27,7 @@ class App(customtkinter.CTk):
         self.left_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.left_sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
         self.left_sidebar_frame.grid_rowconfigure(4, weight=1)
-        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="SortAnalyzer", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Sort Analyzer", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,

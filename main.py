@@ -16,24 +16,5 @@ if __name__ == "__main__":
     """
 
     app = App()
-    app.withdraw()
-
-    # SPLASH SCREEN CODE
-    splash_screen = tk.Toplevel(background="white")
-    splash_screen.overrideredirect(True)
-    splash_screen.title("Splash Screen")
-    x, y = centerWindow(800, 600, app)
-    splash_screen.geometry(f"400x300+{x}+{y}")
-
-    image = tk.PhotoImage(file="ui/test_images/289687_Algorithm efficiency analyzer tool cartoon for pro_xl-1024-v1-0.png")
-    
-    label = tk.Label(splash_screen, image = image)    
-    label.pack()
-    splash_screen.update()
-
-    time.sleep(3)
-
-    # Start the event loop
-    app.deiconify()
-    splash_screen.destroy()
+    app.title("Sorting Visualizer")
     app.mainloop()
