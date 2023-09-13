@@ -190,12 +190,6 @@ def counting_sort(arr):
         
     return arr, steps, (time.time() - start)
 
-    
-
-# User input and demo
-arr = list(map(float, input("Enter space-separated numbers: ").split()))
-sorted_arr = bucket_sort(arr)
-print("Sorted Array:", sorted_arr)
 
 class Sorters():
     """
