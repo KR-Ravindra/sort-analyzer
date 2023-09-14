@@ -24,6 +24,7 @@ class Visualizer():
         Args:
             algo_choice (string): Algorithm Name (allowed values: bubble_sort)
         """
+        plt.close()
         self.algo_choice = algo_choice
         self.dataset = self.unsorted_elements
         self.no_of_elements = len(self.dataset)
@@ -58,7 +59,7 @@ class Visualizer():
         for each_algo in self.available_algos:
             _,_,execution_time = self.sorters.start_sorting(each_algo)
             execution_times.append(execution_time)
-        
+        plt.close()
         self.ax.clear()
         bar = self.ax.bar(range(len(self.available_algos)), execution_times)
         self.ax.set_title(f'Sorting Algorithm Comparision')
