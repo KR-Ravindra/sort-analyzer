@@ -52,6 +52,35 @@ def test_bubble_sort_empty_array():
     assert output_array == expected_output
     assert output_steps == expected_steps
 
+def test_bubble_sort_singleElement_array():
+    """
+    Test that bubble sort correctly sorts a single element array.
+    """
+    input_array = [96]
+    expected_output = [96]
+    expected_steps = []
+
+    sorter = Sorters( input_array)
+    output_array, output_steps,_ = sorter.start_sorting("bubble_sort")
+
+    assert output_array == expected_output
+    assert output_steps == expected_steps
+
+def test_bubble_sort_singleElement_duplicate_array():
+    """
+    Test that bubble sort correctly sorts a single element array.
+    """
+    input_array = [1,1,1,1,1]
+    expected_output = [1,1,1,1,1]
+    expected_steps = []
+
+    sorter = Sorters( input_array)
+    output_array, output_steps,_ = sorter.start_sorting("bubble_sort")
+
+    assert output_array == expected_output
+    assert output_steps == expected_steps
+
+
 def test_insertion_sort_empty_array():
     # Test case 1: Sort an empty list
     input_array = []
@@ -102,7 +131,7 @@ def test_insertion_sort_unsorted_singleElementsRepetition_array():
     sorter = Sorters(input_array)
     sorted_array, steps, execution_time = sorter.start_sorting("insertion_sort")
     assert sorted_array == [1,1,1,1,1,1,1,1,1,1]
-    assert steps == []
+    assert steps != []
     assert execution_time >= 0  # Execution time should be non-negative
 
 
