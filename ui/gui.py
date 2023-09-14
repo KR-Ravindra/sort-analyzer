@@ -149,6 +149,7 @@ class App(customtkinter.CTk):
         msg = CTkMessagebox(title="Steps", message=all_steps, 
                             icon="info", option_1="Compare with other algorithms", option_2="No! I am good!", width = 700, height = 300, fade_in_duration = 4)
         
+        self.entry.delete(0, "end")  
         if msg.get()=="Compare with other algorithms":
             self.compare_with_other_algorithms()
         
