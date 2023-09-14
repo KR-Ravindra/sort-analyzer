@@ -96,7 +96,7 @@ class App(customtkinter.CTk):
             CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
             self.entry.delete(0, "end")  
 
-        input_array = self.entered_input.copy()
+        self.input_array = self.entered_input.copy()
     
         from plotter.visualizer import Visualizer
         self.visualizer = Visualizer(self.entered_input)
@@ -108,7 +108,7 @@ class App(customtkinter.CTk):
             CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
             self.entry.delete(0, "end") 
 
-        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {self.input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
                 icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
 
         if msg.get()=="Compare":
@@ -124,7 +124,7 @@ class App(customtkinter.CTk):
 
     def watch_live(self):
         self.visualizer.call_algo_with_live()
-        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {self.input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
                 icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
 
         if msg.get()=="Compare":

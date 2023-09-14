@@ -30,9 +30,11 @@ class Visualizer():
         
         sorted_array, steps_recording, execution_time = self.sorters.start_sorting(self.algo_choice) #gets all the iterations from sorters instance
         
+        self.steps_recording = steps_recording
+
         return self.fig, sorted_array, execution_time, steps_recording
     
-    def call_algo_with_live(self, speed: float = 1):
+    def call_algo_with_live(self, speed: float = 0.5):
         """Calls sorters for each algorithm
 
         Args:
@@ -46,8 +48,8 @@ class Visualizer():
             self.ax2.set_title(f'{self.algo_choice} Visualization')
             self.ax2.bar_label(bar, labels = step)
             plt.pause(speed) #Implements speed control on UI
-        return None
-    
+        plt.close()
+
     def compare_algo(self):
         self.available_algos = ["bubble_sort", "insertion_sort", "merge_sort", "quick_sort","heap_sort","radix_sort"]
 
