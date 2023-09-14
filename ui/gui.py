@@ -67,7 +67,7 @@ class App(customtkinter.CTk):
             image_path1="ui/test_images/853644_Algorithm_efficiency_analyzer_cartoon_by_minions_g_xl-1024-v1-0.png"
             darkimage = Image.open(image_path1)
             # Create a CTkImage object with the image and size
-            custom_image = customtkinter.CTkImage(light_image=image, dark_image=darkimage, size=(600, 500))
+            custom_image = customtkinter.CTkImage(light_image=image, dark_image=darkimage, size=(1000, 1000))
             # Create a CTkLabel widget to display the image
             label = customtkinter.CTkLabel(self, image=custom_image)
             label.grid(row=0, column=1, rowspan=2, sticky="nsew")
@@ -116,7 +116,7 @@ class App(customtkinter.CTk):
         
         if msg.get()=="Get Steps":
             self.get_steps()
-        self.entry.delete(0, "end") 
+        # self.entry.delete(0, "end") 
 
         if msg.get()=="Live":
             self.watch_live()
@@ -132,7 +132,7 @@ class App(customtkinter.CTk):
         
         if msg.get()=="Get Steps":
             self.get_steps()
-        self.entry.delete(0, "end") 
+        # self.entry.delete(0, "end") 
 
         if msg.get()=="Live":
             self.watch_live()
