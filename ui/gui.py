@@ -64,8 +64,10 @@ class App(customtkinter.CTk):
             image_path="ui/test_images/minion_home_screen.png"
             # Open the image using PIL
             image = Image.open(image_path)
+            image_path1="ui/test_images/853644_Algorithm_efficiency_analyzer_cartoon_by_minions_g_xl-1024-v1-0.png"
+            darkimage = Image.open(image_path1)
             # Create a CTkImage object with the image and size
-            custom_image = customtkinter.CTkImage(light_image=image, size=(600, 500))
+            custom_image = customtkinter.CTkImage(light_image=image, dark_image=darkimage, size=(1000, 1000))
             # Create a CTkLabel widget to display the image
             label = customtkinter.CTkLabel(self, image=custom_image)
             label.grid(row=0, column=1, rowspan=2, sticky="nsew")
@@ -94,7 +96,7 @@ class App(customtkinter.CTk):
             CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
             self.entry.delete(0, "end")  
 
-        input_array = self.entered_input.copy()
+        self.input_array = self.entered_input.copy()
     
         from plotter.visualizer import Visualizer
         self.visualizer = Visualizer(self.entered_input)
@@ -106,15 +108,34 @@ class App(customtkinter.CTk):
             CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
             self.entry.delete(0, "end") 
 
-        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
-                icon="check", option_1="Compare with other algorithms", option_2="No! I am good!", option_3="Get Steps", width = 700, height = 300, fade_in_duration = 4)
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {self.input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+                icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
 
-        if msg.get()=="Compare with other algorithms":
+        if msg.get()=="Compare":
             self.compare_with_other_algorithms()
         
         if msg.get()=="Get Steps":
             self.get_steps()
-        self.entry.delete(0, "end") 
+        # self.entry.delete(0, "end") 
+
+        if msg.get()=="Live":
+            self.watch_live()
+
+
+    def watch_live(self):
+        self.visualizer.call_algo_with_live()
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {self.input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+                icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
+
+        if msg.get()=="Compare":
+            self.compare_with_other_algorithms()
+        
+        if msg.get()=="Get Steps":
+            self.get_steps()
+        # self.entry.delete(0, "end") 
+
+        if msg.get()=="Live":
+            self.watch_live()
 
     def get_steps(self):
         all_steps=""
@@ -128,6 +149,7 @@ class App(customtkinter.CTk):
         msg = CTkMessagebox(title="Steps", message=all_steps, 
                             icon="info", option_1="Compare with other algorithms", option_2="No! I am good!", width = 700, height = 300, fade_in_duration = 4)
         
+        self.entry.delete(0, "end")  
         if msg.get()=="Compare with other algorithms":
             self.compare_with_other_algorithms()
         
