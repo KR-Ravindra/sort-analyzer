@@ -24,21 +24,33 @@ class Visualizer():
         Args:
             algo_choice (string): Algorithm Name (allowed values: bubble_sort)
         """
+        plt.close()
         self.algo_choice = algo_choice
         self.dataset = self.unsorted_elements
         self.no_of_elements = len(self.dataset)
         
         sorted_array, steps_recording, execution_time = self.sorters.start_sorting(self.algo_choice) #gets all the iterations from sorters instance
         
-        # for step in steps_recording: # plots and records graph for each step
-        #     self.ax.clear()
-        #     bar = self.ax.bar(range(self.no_of_elements), step)
-        #     self.ax.set_title(f'{self.algo_choice} Visualization')
-        #     self.ax.bar_label(bar, labels = step)
-        #     plt.pause(speed) #Implements speed control on UI
-        
+        self.steps_recording = steps_recording
+
         return self.fig, sorted_array, execution_time, steps_recording
     
+    def call_algo_with_live(self, speed: float = 0.5):
+        """Calls sorters for each algorithm
+
+        Args:
+            algo_choice (string): Algorithm Name (allowed values: bubble_sort)
+        """
+        plt.close()
+        self.fig2, self.ax2 = plt.subplots()
+        for step in self.steps_recording: # plots and records graph for each step
+            self.ax2.clear()
+            bar = self.ax2.bar(range(self.no_of_elements), step)
+            self.ax2.set_title(f'{self.algo_choice} Visualization')
+            self.ax2.bar_label(bar, labels = step)
+            plt.pause(speed) #Implements speed control on UI
+        plt.close()
+
     def compare_algo(self):
         self.available_algos = ["bubble_sort", "insertion_sort", "merge_sort", "quick_sort","heap_sort","radix_sort"]
 
@@ -47,7 +59,7 @@ class Visualizer():
         for each_algo in self.available_algos:
             _,_,execution_time = self.sorters.start_sorting(each_algo)
             execution_times.append(execution_time)
-        
+        plt.close()
         self.ax.clear()
         bar = self.ax.bar(range(len(self.available_algos)), execution_times)
         self.ax.set_title(f'Sorting Algorithm Comparision')
@@ -68,12 +80,7 @@ class Visualizer():
         self.ax.grid(True)
         
         return self.fig
-    
-    # def show_list(self):
-    #     # Displays graph, called by instance of GUI
-    #     plt.show()
 
-        
 if __name__ == "__main__":
     print("Visualizer Only Mode!") 
 
@@ -87,4 +94,3 @@ if __name__ == "__main__":
         visualizer.show_list()
     except Exception as ex:
         print(f"Exception occured, Given function is not defined {ex}")
-
