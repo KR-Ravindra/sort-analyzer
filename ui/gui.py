@@ -27,7 +27,7 @@ class App(customtkinter.CTk):
         self.left_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.left_sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
         self.left_sidebar_frame.grid_rowconfigure(4, weight=1)
-        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Sort Analyzer", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Sorting Visualizer", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,
@@ -64,10 +64,10 @@ class App(customtkinter.CTk):
             image_path="ui/test_images/minion_home_screen.png"
             # Open the image using PIL
             image = Image.open(image_path)
-            image_path1="ui/test_images/853644_Algorithm_efficiency_analyzer_cartoon_by_minions_g_xl-1024-v1-0.png"
+            image_path1="ui/test_images/minion_home_screen.png"
             darkimage = Image.open(image_path1)
             # Create a CTkImage object with the image and size
-            custom_image = customtkinter.CTkImage(light_image=image, dark_image=darkimage, size=(1000, 1000))
+            custom_image = customtkinter.CTkImage(light_image=image, dark_image=darkimage, size=(800, 600))
             # Create a CTkLabel widget to display the image
             label = customtkinter.CTkLabel(self, image=custom_image)
             label.grid(row=0, column=1, rowspan=2, sticky="nsew")
