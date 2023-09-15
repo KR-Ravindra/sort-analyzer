@@ -28,7 +28,7 @@ class App(customtkinter.CTk):
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         self.optionmenu_1 = customtkinter.CTkOptionMenu(self.left_sidebar_frame, dynamic_resizing=False,
-                                                      values=["Insertion Sort", "Bubble Sort", "Counting Sort","Heap Sort","Quick Sort","Merge Sort","Radix Sort","Bucket Sort"])
+                                                      values=["Insertion Sort", "Bubble Sort","Bucket Sort","Counting Sort","Heap Sort","Quick Sort","Merge Sort","Radix Sort"])
 
         self.optionmenu_1.grid(row=1, column=0, padx=20, pady= 10)
         self.entry = customtkinter.CTkEntry(self.left_sidebar_frame, placeholder_text="Enter Input")

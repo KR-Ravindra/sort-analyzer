@@ -226,11 +226,6 @@ def bucket_sort(arr):
     return sorted_arr, steps, (time.time() - start)
 
 
-# User input and demo
-arr = list(map(float, input("Enter space-separated numbers: ").split()))
-sorted_arr = bucket_sort(arr)
-print("Sorted Array:", sorted_arr)
-
 class Sorters():
     """
     Responsible for calling each algorithm. This is exposed to visualizer.
