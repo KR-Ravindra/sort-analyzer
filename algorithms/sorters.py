@@ -146,6 +146,17 @@ def heap_sort(arr):
         heapify(arr, i, 0)
     return arr, steps, (time.time() - start)
 
+def number_mixed(arr):
+        if(arr[0]<0):
+         for i in range(arr,1):
+             if(arr[i]>0):
+                 return False
+        else:
+            for i in range(arr,1):
+                if(arr[i]<0):
+                    return False
+
+             
 
 def radix_sort(arr):
     steps = []
@@ -154,7 +165,7 @@ def radix_sort(arr):
     exp = 1
     n = len(arr)
     output = [0] * n
-    
+    number_mixed(arr)
     while max_num // exp > 0:
         counting = [0] * 10
         for i in arr:
@@ -177,6 +188,7 @@ def counting_sort(arr):
     max_val = max(arr)
     count = [0] * (max_val + 1)
     output = [-1] * len(arr)
+    number_mixed(arr)
     for i in arr:
         count[i] += 1
     for i in range(1, len(count)):
