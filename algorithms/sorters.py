@@ -190,6 +190,7 @@ def counting_sort(arr):
         
     return arr, steps, (time.time() - start)
 
+
 def bucket_sort(arr):
     steps = []
     start = time.time()
@@ -224,6 +225,7 @@ def bucket_sort(arr):
         steps.append(list(arr))
 
     return sorted_arr, steps, (time.time() - start)
+
 
 
 class Sorters():
