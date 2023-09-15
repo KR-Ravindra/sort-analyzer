@@ -191,6 +191,43 @@ def counting_sort(arr):
     return arr, steps, (time.time() - start)
 
 
+def bucket_sort(arr):
+    steps = []
+    start = time.time()
+    if len(arr) == 0:
+        return arr
+
+    # Find the minimum and maximum values in the input array
+    min_val, max_val = min(arr), max(arr)
+    
+    # Calculate the range of values in the array
+    value_range = max_val - min_val
+
+    # Determine the number of buckets
+    bucket_count = len(arr)
+
+    # Initialize the buckets
+    buckets = [[] for _ in range(bucket_count)]
+
+    # Distribute elements into buckets
+    for num in arr:
+        index = int((num - min_val) / (value_range / (bucket_count - 1)))
+        buckets[index].append(num)
+
+    # Sort each bucket (you can use any sorting algorithm here)
+    for i in range(bucket_count):
+        buckets[i].sort()
+
+    # Concatenate the sorted buckets to get the final sorted array
+    sorted_arr = []
+    for bucket in buckets:
+        sorted_arr.extend(bucket)
+        steps.append(list(arr))
+
+    return sorted_arr, steps, (time.time() - start)
+
+
+
 class Sorters():
     """
     Responsible for calling each algorithm. This is exposed to visualizer.
