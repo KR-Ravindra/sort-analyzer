@@ -14,9 +14,7 @@ def bubble_sort(unsorted_elements: list):
     
     # Iterating through the list 'arr' 'n' times
     for i in range(n):
-        swapped = False  # Initializing a flag to False to track whether any swaps were made
-        
-        # Iterating through the unsorted portion of the list
+        swapped = False  
         for j in range(0, n - i - 1):
             # If the current element is greater than the next element, swap them
             if arr[j] > arr[j + 1]:
@@ -24,7 +22,6 @@ def bubble_sort(unsorted_elements: list):
                 swapped = True  # Setting the flag to True to indicate a swap occurred
                 steps.append(list(arr))  # Appending a copy of the current state of 'arr' to 'steps'
         
-        # If no swaps were made in a pass, the list is already sorted, so break out of the loop
         if not swapped:
             break
     
@@ -40,24 +37,20 @@ def insertion_sort(arr):
     Output: Sorted Array, List of arrays (every iteration during sort), execution time
     """
     
-    steps = []  # Creating an empty list to record intermediate steps during sorting
-    start = time.time()  # Recording the current time to measure execution time
+    steps = []  
+    start = time.time()  
     
-    # Looping through the input list 'arr' starting from the second element (index 1)
     for i in range(1, len(arr)):
-        key = arr[i]  # Storing the current element at index 'i' in the variable 'key'
-        j = i - 1  # Initializing a variable 'j' to the previous index of 'i'
+        key = arr[i]
+        j = i - 1  
         
-        # Comparing 'key' with the elements before it until we find the correct position
-        # or reach the beginning of the list
         while j >= 0 and key < arr[j]:
-            arr[j + 1] = arr[j]  # Shifting elements to the right to make space for 'key'
-            j -= 1  # Move 'j' one position to the left
+            arr[j + 1] = arr[j] 
+            j -= 1 
         
         arr[j + 1] = key  # Placing 'key' in its correct sorted position in the list
         steps.append(list(arr))  # Appending a copy of the current state of 'arr' to 'steps'
     
-    # Returning the sorted 'arr', the list of intermediate steps, and the execution time
     return arr, steps, (time.time() - start)
 
 
@@ -73,15 +66,14 @@ def quick_sort(arr):
     # Defininig a helper function for partitioning the array
     def partition(arr, low, high, steps):
         pivot = arr[high]  # Choosing the pivot element (typically the last element)
-        i = low - 1  # Initializing an index 'i' to the left of the subarray
+        i = low - 1 
 
         for j in range(low, high):
             if arr[j] <= pivot:
-                i += 1  # Incrementing 'i' when a smaller element is found
-                arr[i], arr[j] = arr[j], arr[i]  # Swaping 'arr[i]' and 'arr[j]'
-                steps.append(list(arr))  # Appending a copy of 'arr' to 'steps' after each swap
+                i += 1  
+                arr[i], arr[j] = arr[j], arr[i]  
+                steps.append(list(arr)) 
 
-        # Swaping the pivot element with the element at 'i + 1' to place the pivot in its final position
         arr[i + 1], arr[high] = arr[high], arr[i + 1]
         steps.append(list(arr))  # Appending the final state of 'arr' after partitioning
 
@@ -91,7 +83,6 @@ def quick_sort(arr):
     def quick_sort_recursive(arr, low, high, steps):
         if low < high:
             pivot_index = partition(arr, low, high, steps)  # Getting the pivot index
-            # Recursively sort the subarrays to the left and right of the pivot
             quick_sort_recursive(arr, low, pivot_index - 1, steps)
             quick_sort_recursive(arr, pivot_index + 1, high, steps)
 
@@ -100,11 +91,7 @@ def quick_sort(arr):
 
     quick_sort_recursive(arr, 0, len(arr) - 1, steps)  # Calling the recursive quick sort function
 
-    # Returning the sorted 'arr', the list of intermediate steps, and the execution time
     return arr, steps, (time.time() - start)
-
-
-
 
 
 def merge_sort(arr):
@@ -115,8 +102,8 @@ def merge_sort(arr):
     Output: Sorted Array, List of arrays (every partition during sort), execution time
     """
     
-    steps = []  # Initializing an empty list to record intermediate steps during sorting
-    start = time.time()  # Recording the current time to measure execution time
+    steps = [] 
+    start = time.time() 
     steps.append(list(arr))  # Appending a copy of the initial state of 'arr' to 'steps'
 
     if len(arr) > 1:
@@ -153,7 +140,7 @@ def merge_sort(arr):
 
         steps.append(list(arr))  # Appending a copy of the final sorted state of 'arr' to 'steps'
 
-    return arr, steps, (time.time() - start)  # Returning the sorted 'arr', 'steps', and execution time
+    return arr, steps, (time.time() - start) 
 
 
 def heapify(arr, n, i):
@@ -183,9 +170,9 @@ def heapify(arr, n, i):
         heapify(arr, n, largest)
 
 def heap_sort(arr):
-    steps = []  # Initializing an empty list to record intermediate steps during sorting
-    start = time.time()  # Recording the current time to measure execution time
-    n = len(arr)  # Calculating the length of the input array
+    steps = []  
+    start = time.time()  
+    n = len(arr) 
 
     # Building a max-heap from the input array
     for i in range(n // 2 - 1, -1, -1):
@@ -198,7 +185,7 @@ def heap_sort(arr):
         steps.append(list(arr))
         heapify(arr, i, 0)  # Heapify the reduced heap
 
-    return arr, steps, (time.time() - start)  # Returning the sorted 'arr', 'steps', and execution time
+    return arr, steps, (time.time() - start)  
 
 
 
@@ -209,9 +196,9 @@ def radix_sort(arr):
     Input: List of integers
     Output: Sorted Array, List of arrays (every partition during sort), execution time
     """
-    steps = []  # Initializing an empty list to record intermediate steps during sorting
-    start = time.time()  # Recording the current time to measure execution time
-    max_num = max(arr)  # Finding the maximum number in the input array
+    steps = []  
+    start = time.time() 
+    max_num = max(arr) 
     exp = 1  # Initializing the current digit place (1s, 10s, 100s, etc.)
     n = len(arr)  # Calculating the length of the input array
     output = [0] * n  # Creating an empty output array to store the sorted elements
@@ -245,7 +232,6 @@ def radix_sort(arr):
         # Appending a copy of the current state of 'arr' to the 'steps' list to record the intermediate step
         steps.append(list(arr))
 
-    # Returning the sorted 'arr', the list of intermediate steps ('steps'), and the execution time
     return arr, steps, (time.time() - start)
 
 
@@ -256,8 +242,8 @@ def counting_sort(arr):
     Input: List of integers
     Output: Sorted Array, List of arrays (every partition during sort), execution time
     """
-    steps = []  # Initializing an empty list to record intermediate steps during sorting
-    start = time.time()  # Recording the current time to measure execution time
+    steps = []  
+    start = time.time()
     max_val = max(arr)  # Finding the maximum value in the input array
     count = [0] * (max_val + 1)  # Creating a counting array with size (max_val + 1)
     output = [-1] * len(arr)  # Creating an output array with the same length as the input 'arr'
@@ -283,7 +269,7 @@ def counting_sort(arr):
     for i in range(len(arr)):
         arr[i] = output[i]
 
-    return arr, steps, (time.time() - start)  # Returning the sorted 'arr', 'steps', and execution time
+    return arr, steps, (time.time() - start)  
 
 
 
