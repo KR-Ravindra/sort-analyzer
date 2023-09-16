@@ -244,9 +244,9 @@ def counting_sort(arr):
     """
     steps = []  
     start = time.time()
-    max_val = max(arr)  # Finding the maximum value in the input array
-    count = [0] * (max_val + 1)  # Creating a counting array with size (max_val + 1)
-    output = [-1] * len(arr)  # Creating an output array with the same length as the input 'arr'
+    max_v = max(arr)
+    count = [0] * (max_v + 1)
+    output = [-1] * len(arr)
 
     # Counting the occurrences of each element in the input array 'arr'
     for i in arr:
@@ -285,11 +285,13 @@ def bucket_sort(arr):
     if len(arr) == 0:
         return arr
 
-    # Finding the minimum and maximum values in the input array
-    min_val, max_val = min(arr), max(arr)
+
+    # Find the minimum and maximum values in the input array
+    min_v, max_v = min(arr), max(arr)
     
-    # Calculating the range of values in the array
-    value_range = max_val - min_val
+    # Calculate the range of values in the array
+    value_range = max_v - min_v
+
 
     # Determining the number of buckets
     bucket_count = len(arr)
@@ -299,7 +301,7 @@ def bucket_sort(arr):
 
     # Distributing elements into buckets
     for num in arr:
-        index = int((num - min_val) / (value_range / (bucket_count - 1)))
+        index = int((num - min_v) / (value_range / (bucket_count - 1)))
         buckets[index].append(num)
 
     # Sorting each bucket (you can use any sorting algorithm here)
