@@ -174,8 +174,8 @@ def radix_sort(arr):
 def counting_sort(arr):
     steps = []
     start = time.time()
-    max_val = max(arr)
-    count = [0] * (max_val + 1)
+    max_v = max(arr)
+    count = [0] * (max_v + 1)
     output = [-1] * len(arr)
     for i in arr:
         count[i] += 1
@@ -198,10 +198,10 @@ def bucket_sort(arr):
         return arr
 
     # Find the minimum and maximum values in the input array
-    min_val, max_val = min(arr), max(arr)
+    min_v, max_v = min(arr), max(arr)
     
     # Calculate the range of values in the array
-    value_range = max_val - min_val
+    value_range = max_v - min_v
 
     # Determine the number of buckets
     bucket_count = len(arr)
@@ -211,7 +211,7 @@ def bucket_sort(arr):
 
     # Distribute elements into buckets
     for num in arr:
-        index = int((num - min_val) / (value_range / (bucket_count - 1)))
+        index = int((num - min_v) / (value_range / (bucket_count - 1)))
         buckets[index].append(num)
 
     # Sort each bucket (you can use any sorting algorithm here)
