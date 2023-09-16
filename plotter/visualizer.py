@@ -45,6 +45,9 @@ class Visualizer():
         self.fig2, self.ax2 = plt.subplots()
         for step in self.steps_recording: # plots and records graph for each step
             self.ax2.clear()
+            # set window title as Live sorting instead of Figure 1
+            self.fig2.canvas.manager.set_window_title("Live Sorting")
+            
             bar = self.ax2.bar(range(self.no_of_elements), step)
             self.ax2.set_title(f'{self.algo_choice} Visualization')
             self.ax2.bar_label(bar, labels = step)
