@@ -3,6 +3,11 @@
 # sort-analyzer
 An alogrithm efficiency analyzer tool for few famous sort algorithms
 
+## Visuals
+![MainScreen](./images/mainscreen.png)
+![LiveSort](./images/liveGUI.png)
+![AlgoCompare](./images/algo-comparision.png)
+
 ## Pre-requesties
 * Python 3.6+ (tested on python version: `Python 3.11` - Mac OS)
 
@@ -33,6 +38,7 @@ $ git push origin mybranchname
 $ export PYTHONPATH=$PYTHONPATH:$PWD/algorithms 
 $ pytest # Run all test cases with coverage report
 ```
-
-
-> This is a group assignment for CPSC 535 class for semester Fall 2023 at Cal State University, Fullerton
+## Contribution
+```bash
+No particular rules, Thank you for contributions!
+```
