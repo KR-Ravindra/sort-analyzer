@@ -103,12 +103,13 @@ class App(customtkinter.CTk):
         # runs in background; doesnt interrupt process flow
         try:
             _, self.sorted_array, self.execution_time, self.steps_recording = self.visualizer.call_algo(self.optionmenu_1.get().lower().replace(" ","_"))
+            self.final_array = self.sorted_array.copy()
             self.figure = self.visualizer.compare_algo()
         except Exception as ex:
             CTkMessagebox(title="Error", message=f"Invalid input! Try again!!\n Exception: {ex}", icon="cancel")
             self.entry.delete(0, "end") 
 
-        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {self.input_array}\nSorted Array: {self.sorted_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
+        msg=CTkMessagebox(title="Sorted",message=f"Given Input: {self.input_array}\nSorted Array: {self.final_array}\nAlgorithm: {self.optionmenu_1.get()}\nTime Taken: {self.execution_time}",
                 icon="check", options=["Compare", "Get Steps", "Live"], width = 700, height = 300, fade_in_duration = 4)
 
         if msg.get()=="Compare":
